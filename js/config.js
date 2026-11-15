@@ -3,6 +3,7 @@ window.GALLERY_CONFIG = {
   "owner": "1moonzoo1369-blip",
   "repo": "kids-gallery",
   "branch": "main",
+  "tokenExpires": "2027-11-15",
   "enc": {
     "v": 1,
     "iter": 600000,

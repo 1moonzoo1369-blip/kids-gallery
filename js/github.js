@@ -139,6 +139,13 @@
     return c && c.owner ? `https://raw.githubusercontent.com/${c.owner}/${c.repo}/${c.branch || 'main'}/${path}` : path;
   }
 
-  window.GH = { encryptToken, decryptToken, unlock, getToken, setToken, gh, readData, createBlob, commit, rawUrl, utf8ToB64,
+  // 레포 용량(KB). 토큰 없이도 읽힘. GitHub 집계는 몇 시간 늦을 수 있음.
+  async function repoInfo() {
+    const res = await fetch(repoPath(''), { headers: { Accept: 'application/vnd.github+json' }, cache: 'no-store' });
+    if (!res.ok) throw new Error(`GitHub 오류 ${res.status}`);
+    return res.json();
+  }
+
+  window.GH = { repoInfo, encryptToken, decryptToken, unlock, getToken, setToken, gh, readData, createBlob, commit, rawUrl, utf8ToB64,
     configured: () => !!(cfg() && cfg().owner && cfg().enc) };
 })();

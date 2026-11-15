@@ -233,6 +233,23 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
   .modal .set-row .pill-btn span { display: none; }
 }
 
+.set-box { padding: 12px 14px; border-radius: 12px; background: #f8eee1; font-size: 15px; line-height: 1.6; }
+.set-box.warn { background: #fdecd2; color: #8a5a12; }
+.set-box.bad { background: #fbe0dc; color: #9c3a30; }
+.set-box .help a { color: inherit; font-weight: bold; }
+.meter { height: 12px; border-radius: 6px; background: #efe1cd; overflow: hidden; }
+.meter i { display: block; height: 100%; border-radius: 6px; background: #7fb48a; }
+.meter.warn i { background: #e0a243; }
+.meter.bad i { background: var(--danger); }
+.meter-txt { margin-top: 6px; font-size: 15px; }
+.notice {
+  position: sticky; top: 61px; z-index: 25; display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; background: #fdecd2; color: #6e4610; border-bottom: 1px solid #f0d3a6; font-size: 15px;
+}
+.notice span { flex: 1; }
+.notice .pill-btn { width: auto; padding: 0 12px; flex: none; }
+.notice .icon-btn { width: 32px; height: 32px; font-size: 14px; }
+
 /* ---------- 상세 화면 ---------- */
 .detail { padding-bottom: 30px; }
 .detail .back { position: absolute; left: 16px; top: 22px; z-index: 3; }

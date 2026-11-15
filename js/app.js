@@ -355,12 +355,69 @@
       </div>`).join('');
     const m = openModal(`<h3>설정</h3>
       <div class="field"><span>아이 갤러리</span>${rows || '<p class="note">아직 아이가 없어요.</p>'}</div>
-      <div class="row" style="justify-content:space-between"><button class="pill-btn" id="addK">${icon.plus}<span>아이 추가</span></button><button class="pill-btn" data-x>닫기</button></div>`);
+      <div class="row" style="justify-content:flex-start;margin:0 0 20px"><button class="pill-btn" id="addK">${icon.plus}<span>아이 추가</span></button></div>
+      <div class="field"><span>업로드 토큰</span>${tokenHtml()}</div>
+      <div class="field"><span>저장 공간 (GitHub 사이트 한도 1GB)</span><div id="storage" class="set-box">불러오는 중…</div></div>
+      <div class="row"><button class="pill-btn" data-x>닫기</button></div>`);
+    loadStorage().then((h) => { const el = m.querySelector('#storage'); if (el) el.innerHTML = h; });
     m.querySelector('[data-x]').onclick = closeModal;
     m.querySelector('#addK').onclick = () => { closeModal(); openChildForm(); };
     m.querySelectorAll('[data-edit]').forEach((b) => b.onclick = () => { closeModal(); openChildForm(childOf(b.dataset.edit)); });
   }
   document.getElementById('settingsBtn').onclick = openSettings;
+
+  // ---------- 토큰 만료 · 저장 용량 ----------
+  const LIMIT_MB = 1024, PER_PIC_MB = 0.5;
+  const TOKEN_PAGE = 'https://github.com/settings/personal-access-tokens';
+  function tokenDays() {
+    const e = window.GALLERY_CONFIG && window.GALLERY_CONFIG.tokenExpires;
+    if (!e) return null;
+    const [y, m, d] = e.split('-').map(Number);
+    const t = new Date(); t.setHours(0, 0, 0, 0);
+    return { date: e, days: Math.round((new Date(y, m - 1, d) - t) / 86400000) };
+  }
+  function tokenHtml() {
+    const t = tokenDays();
+    const how = `<div class="help">갱신 방법: <a href="${TOKEN_PAGE}" target="_blank" rel="noopener">GitHub 토큰 화면</a>에서 kids-gallery-upload 토큰의 <b>Regenerate token</b> → 새 토큰을 복사해 <a href="setup.html">setup.html</a>에 가족 비밀번호와 함께 다시 저장</div>`;
+    if (!t) return `<div class="set-box">만료일 정보가 없어요. setup.html에서 다시 등록하면 표시돼요.${how}</div>`;
+    const [y, m, d] = t.date.split('-').map(Number);
+    const cls = t.days <= 0 ? 'bad' : t.days <= 30 ? 'warn' : 'ok';
+    const msg = t.days < 0 ? `만료됐어요 (${-t.days}일 지남) — 지금은 업로드가 안 돼요` : t.days === 0 ? '오늘 만료돼요' : `${t.days}일 남았어요`;
+    return `<div class="set-box ${cls}"><b>${y}년 ${m}월 ${d}일</b>까지 · ${msg}${cls !== 'ok' ? how : `<div class="help">만료 30일 전부터 알림이 떠요.</div>`}</div>`;
+  }
+  async function loadStorage() {
+    try {
+      const info = await GH.repoInfo();
+      const mb = info.size / 1024, pct = Math.min(100, (mb / LIMIT_MB) * 100);
+      const left = Math.max(0, Math.floor((LIMIT_MB - mb) / PER_PIC_MB));
+      const cls = pct >= 90 ? 'bad' : pct >= 80 ? 'warn' : 'ok';
+      state.storagePct = pct;
+      return `<div class="meter ${cls}"><i style="width:${Math.max(pct, 1).toFixed(1)}%"></i></div>
+        <div class="meter-txt"><b>${mb < 10 ? mb.toFixed(1) : Math.round(mb)}MB</b> / 1,024MB 사용 (${pct.toFixed(1)}%)</div>
+        <div class="help">그림 ${state.data.drawings.length}장 저장됨 · 약 ${left.toLocaleString()}장 더 올릴 수 있어요 (1장 ≈ 0.5MB). GitHub 집계는 몇 시간 늦게 반영될 수 있어요.${pct >= 80 ? '<br><b>곧 가득 차요.</b> 오래된 해를 다른 레포로 옮기는 등 정리가 필요해요.' : ''}</div>`;
+    } catch (e) { return `용량을 불러오지 못했어요 (${esc(e.message)})`; }
+  }
+  // 업로드 권한이 있는 기기에서만, 하루 한 번 알림
+  async function showNotices() {
+    if (!canEdit()) return;
+    const today = todayStr();
+    try { if (localStorage.getItem('kg_notice_day') === today) return; } catch {}
+    const msgs = [];
+    const t = tokenDays();
+    if (t && t.days <= 30) msgs.push(t.days < 0 ? '업로드 토큰이 만료됐어요. 설정에서 갱신 방법을 확인해 주세요.' : `업로드 토큰이 ${t.days}일 뒤 만료돼요. 설정(톱니바퀴)에서 갱신해 주세요.`);
+    try {
+      const info = await GH.repoInfo(); const pct = info.size / 1024 / LIMIT_MB * 100;
+      if (pct >= 80) msgs.push(`저장 공간을 ${pct.toFixed(0)}% 썼어요. 설정에서 확인해 주세요.`);
+    } catch {}
+    if (!msgs.length) return;
+    try { localStorage.setItem('kg_notice_day', today); } catch {}
+    const n = document.createElement('div');
+    n.className = 'notice';
+    n.innerHTML = `<span>${msgs.map(esc).join('<br>')}</span><button class="pill-btn" id="nOpen">설정 열기</button><button class="icon-btn" id="nClose" aria-label="닫기">✕</button>`;
+    document.querySelector('.topbar').after(n);
+    n.querySelector('#nOpen').onclick = () => { n.remove(); openSettings(); };
+    n.querySelector('#nClose').onclick = () => n.remove();
+  }
 
   function openChildForm(child) {
     const edit = !!child; child = child || {};
@@ -616,5 +673,5 @@
 
   // ---------- 시작 ----------
   $app.innerHTML = '<div class="loading">그림을 불러오는 중…</div>';
-  load().then(render).catch((e) => { $app.innerHTML = `<div class="loading">불러오지 못했어요: ${esc(e.message)}</div>`; });
+  load().then(() => { render(); showNotices(); }).catch((e) => { $app.innerHTML = `<div class="loading">불러오지 못했어요: ${esc(e.message)}</div>`; });
 })();

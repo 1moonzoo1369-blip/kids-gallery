@@ -6,7 +6,7 @@
 <title>그림앨범 처음 설정</title>
 <link rel="icon" href="assets/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=4">
 <style>
   .setup { max-width: 640px; margin: 24px auto; padding: 0 16px 40px; }
   .setup .modal { width: 100%; max-height: none; }
@@ -32,6 +32,8 @@
     <label class="field"><span>레포 이름</span><input type="text" id="repo" autocapitalize="off" spellcheck="false"></label>
     <label class="field"><span>브랜치</span><input type="text" id="branch" value="main" autocapitalize="off"></label>
     <label class="field"><span>GitHub 토큰 (github_pat_…)</span><input type="password" id="token" autocomplete="off"></label>
+    <label class="field"><span>토큰 만료일 (GitHub 토큰 화면에 나온 날짜)</span><input type="date" id="exp">
+      <div class="help">설정 화면에 남은 날짜를 보여주고, 만료 30일 전부터 알려줘요.</div></label>
     <label class="field"><span>가족 업로드 비밀번호</span><input type="password" id="pw1" autocomplete="new-password"></label>
     <label class="field"><span>비밀번호 한 번 더</span><input type="password" id="pw2" autocomplete="new-password"></label>
     <div class="err" id="err"></div>
@@ -40,7 +42,7 @@
   </div>
 </div>
 <script src="js/config.js"></script>
-<script src="js/github.js?v=2"></script>
+<script src="js/github.js?v=4"></script>
 <script>
 (function () {
   const $ = (id) => document.getElementById(id);
@@ -50,6 +52,7 @@
   $('owner').value = c?.owner || (m ? m[1] : '');
   $('repo').value = c?.repo || (m ? location.pathname.split('/').filter(Boolean)[0] || '' : '');
   if (c?.branch) $('branch').value = c.branch;
+  { const d = new Date(); d.setDate(d.getDate() + 365); $('exp').value = d.toISOString().slice(0, 10); }
 
   $('go').onclick = async () => {
     const owner = $('owner').value.trim(), repo = $('repo').value.trim(), branch = $('branch').value.trim() || 'main';
@@ -66,7 +69,7 @@
       if (info.private) err.textContent = '참고: 레포가 비공개라서, 열람용 주소가 동작하려면 공개(Public)로 바꿔야 해요.';
       btn.textContent = '암호화 중…';
       const box = await GH.encryptToken(token, pw);
-      const cfg = { owner, repo, branch, enc: box };
+      const cfg = { owner, repo, branch, ...($('exp').value ? { tokenExpires: $('exp').value } : {}), enc: box };
       const js = '// setup.html 에서 자동으로 만든 파일이에요. 직접 고치지 않아도 돼요.\n' +
         'window.GALLERY_CONFIG = ' + JSON.stringify(cfg, null, 2) + ';\n';
       btn.textContent = 'GitHub에 저장 중…';
