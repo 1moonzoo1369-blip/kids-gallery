@@ -1,5 +1,14 @@
 {
   "version": 1,
-  "children": [],
+  "children": [
+    {
+      "id": "ju-yul",
+      "createdAt": "2026-11-15T05:21:13.151Z",
+      "photo": "profiles/ju-yul_1794720071124.jpg",
+      "name": "지율",
+      "frame": "champ",
+      "updatedAt": "2026-11-15T05:21:13.154Z"
+    }
+  ],
   "drawings": []
 }
