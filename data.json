@@ -18,5 +18,23 @@
       "updatedAt": "2026-11-15T05:22:16.818Z"
     }
   ],
-  "drawings": []
+  "drawings": [
+    {
+      "id": "zveq1eg1",
+      "child": "ju-yul",
+      "date": "2026-11-14",
+      "n": 1,
+      "file": "drawings/ju-yul/2026/11/2026-11-14_01.jpg",
+      "thumb": "thumbs/ju-yul/2026/11/2026-11-14_01.jpg",
+      "sha": "fbe61f62ccfa9c66b18540eeadd888cadb64b8fb",
+      "thumbSha": "ca6b8de383ebbe40cd85be8e856f2656fa79e3c3",
+      "w": 1500,
+      "h": 2000,
+      "title": "낙하산타는 사람, 스케이트타는 사람",
+      "desc": "엄마는 낙하산이 좋아 스케이트가 좋아? 낙하산. 그래! 엄마는 낙하산이 좋으니까 낙하산타는 사람, 나는 스케이트 타는 사람",
+      "icon": "palette",
+      "createdAt": "2026-11-15T05:24:09.736Z",
+      "updatedAt": "2026-11-15T05:24:09.736Z"
+    }
+  ]
 }
