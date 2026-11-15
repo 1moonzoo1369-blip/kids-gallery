@@ -49,7 +49,9 @@
     const headers = { Accept: 'application/vnd.github+json', ...(opts.headers || {}) };
     if (token) headers.Authorization = `Bearer ${token}`;
     if (opts.body && typeof opts.body !== 'string') { opts.body = JSON.stringify(opts.body); headers['Content-Type'] = 'application/json'; }
-    const res = await fetch(path.startsWith('http') ? path : repoPath(path), { ...opts, headers });
+    // '/repos/...' 처럼 전체 API 경로면 그대로, '/git/...' 같은 짧은 경로면 이 레포 기준으로
+    const url = path.startsWith('http') ? path : path.startsWith('/repos/') ? API + path : repoPath(path);
+    const res = await fetch(url, { ...opts, headers });
     if (res.status === 401) { setToken(null); throw Object.assign(new Error('업로드 권한이 만료됐어요. 잠금을 다시 풀어주세요.'), { status: 401 }); }
     if (!res.ok) {
       let msg = ''; try { msg = (await res.json()).message; } catch {}
