@@ -35,6 +35,23 @@
       "icon": "palette",
       "createdAt": "2026-11-15T05:24:09.736Z",
       "updatedAt": "2026-11-15T05:24:09.736Z"
+    },
+    {
+      "id": "ijqudxgz",
+      "child": "ju-yul",
+      "date": "2026-11-15",
+      "n": 1,
+      "file": "drawings/ju-yul/2026/11/2026-11-15_01.jpg",
+      "thumb": "thumbs/ju-yul/2026/11/2026-11-15_01.jpg",
+      "sha": "0d30bc53ea8ec3604696d715dae34cc83f5af70c",
+      "thumbSha": "e8fa5f8db5a3afdfa07114552eb85b598078450b",
+      "w": 1500,
+      "h": 2000,
+      "title": "결혼식",
+      "desc": "우리가 태어나기전 엄마아빠가 결혼하는 모습",
+      "icon": "heart",
+      "createdAt": "2026-11-15T05:25:18.658Z",
+      "updatedAt": "2026-11-15T05:25:18.658Z"
     }
   ]
 }
