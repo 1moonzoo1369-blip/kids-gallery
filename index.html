@@ -2,15 +2,38 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<script>
+  // 카카오톡 안에서 열리면 → 휴대폰 기본 브라우저(크롬/사파리)로 다시 열기
+  (function () {
+    var ua = navigator.userAgent || '';
+    if (!/KAKAOTALK/i.test(ua)) return;
+    location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(location.href);
+    setTimeout(function () { // 바깥 브라우저가 열린 뒤 카톡 안의 창은 닫기
+      location.href = /iPhone|iPad|iPod/i.test(ua) ? 'kakaoweb://closeBrowser' : 'kakaotalk://inappbrowser/close';
+    }, 1500);
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>우리 아이 그림앨범</title>
+<meta name="description" content="우리 아이가 그린 그림을 날짜별 전시실에 모아 보는 그림앨범">
+<meta property="og:type" content="website">
+<meta property="og:title" content="우리 아이 그림앨범">
+<meta property="og:description" content="아이가 그린 그림을 날짜별 전시실에서 보세요">
+<meta property="og:image" content="https://1moonzoo1369-blip.github.io/kids-gallery/assets/og.jpg">
+<meta property="og:url" content="https://1moonzoo1369-blip.github.io/kids-gallery/">
 <meta name="theme-color" content="#f6eadb">
+<!-- 홈 화면에 추가하면 주소창 없이 전체화면 앱처럼 -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="그림앨범">
 <link rel="icon" href="assets/logo.png">
-<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
 <header class="topbar">
@@ -26,6 +49,9 @@
     <button class="pill-btn primary" id="uploadBtn" hidden>
       <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
       <span>그림 올리기</span>
+    </button>
+    <button class="icon-btn" id="fsBtn" title="전체화면" aria-label="전체화면">
+      <svg viewBox="0 0 24 24" id="fsIcon"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
     </button>
     <button class="icon-btn" id="settingsBtn" title="설정 (아이 사진·이름)" aria-label="설정" hidden>
       <svg viewBox="0 0 24 24"><path d="M12.2 2h-.4a2 2 0 0 0-2 2v.2a2 2 0 0 1-1 1.7l-.4.3a2 2 0 0 1-2 0l-.2-.1a2 2 0 0 0-2.7.7l-.2.4a2 2 0 0 0 .7 2.7l.2.1a2 2 0 0 1 1 1.7v.5a2 2 0 0 1-1 1.7l-.2.1a2 2 0 0 0-.7 2.7l.2.4a2 2 0 0 0 2.7.7l.2-.1a2 2 0 0 1 2 0l.4.3a2 2 0 0 1 1 1.7v.2a2 2 0 0 0 2 2h.4a2 2 0 0 0 2-2v-.2a2 2 0 0 1 1-1.7l.4-.3a2 2 0 0 1 2 0l.2.1a2 2 0 0 0 2.7-.7l.2-.4a2 2 0 0 0-.7-2.7l-.2-.1a2 2 0 0 1-1-1.7v-.5a2 2 0 0 1 1-1.7l.2-.1a2 2 0 0 0 .7-2.7l-.2-.4a2 2 0 0 0-2.7-.7l-.2.1a2 2 0 0 1-2 0l-.4-.3a2 2 0 0 1-1-1.7V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -46,7 +72,7 @@
 </div>
 
 <script src="js/config.js"></script>
-<script src="js/github.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+<script src="js/github.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>

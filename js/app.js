@@ -567,6 +567,53 @@
     };
   }
 
+  // ---------- 전체화면 ----------
+  // 홈 화면 앱으로 열렸으면 이미 전체화면. 브라우저에서는 첫 터치 때 자동으로 전체화면(브라우저 규칙상 터치가 있어야 가능).
+  const FS_KEY = 'kg_fs_off';
+  const root = document.documentElement;
+  const isApp = () => matchMedia('(display-mode: fullscreen), (display-mode: standalone)').matches || navigator.standalone === true;
+  const canFS = () => !!(root.requestFullscreen || root.webkitRequestFullscreen);
+  const inFS = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const fsOff = () => { try { return localStorage.getItem(FS_KEY) === '1'; } catch { return false; } };
+  const setFsOff = (v) => { try { v ? localStorage.setItem(FS_KEY, '1') : localStorage.removeItem(FS_KEY); } catch {} };
+  function enterFS() {
+    const f = root.requestFullscreen || root.webkitRequestFullscreen;
+    try { const p = f.call(root, { navigationUI: 'hide' }); if (p && p.catch) p.catch(() => {}); } catch {}
+  }
+  function exitFS() { const f = document.exitFullscreen || document.webkitExitFullscreen; if (f) f.call(document); }
+  function updateFsBtn() {
+    const b = document.getElementById('fsBtn');
+    if (isApp()) { b.hidden = true; return; }
+    const on = inFS();
+    b.title = on ? '전체화면 끄기' : '전체화면';
+    document.getElementById('fsIcon').innerHTML = on
+      ? '<path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>'
+      : '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>';
+  }
+  document.addEventListener('fullscreenchange', updateFsBtn);
+  document.addEventListener('webkitfullscreenchange', updateFsBtn);
+  document.getElementById('fsBtn').onclick = () => {
+    if (!canFS()) { // 아이폰 사파리는 웹페이지 전체화면을 막아 둬서 홈 화면 앱으로 안내
+      const m = openModal(`<h3>아이폰에서 전체화면으로 보기</h3>
+        <p class="note">아이폰 사파리는 웹페이지 전체화면을 지원하지 않아요. 대신 <b>홈 화면에 추가</b>하면 주소창 없이 앱처럼 꽉 찬 화면으로 열려요.</p>
+        <ol style="line-height:1.9;font-size:15px;padding-left:20px">
+          <li>사파리 아래쪽 <b>공유 버튼</b>(네모에 화살표) 누르기</li>
+          <li><b>홈 화면에 추가</b> 누르기</li>
+          <li>홈 화면에 생긴 <b>그림앨범</b> 아이콘으로 열기</li>
+        </ol>
+        <div class="row"><button class="pill-btn primary" data-x>알겠어요</button></div>`);
+      m.querySelector('[data-x]').onclick = closeModal;
+      return;
+    }
+    if (inFS()) { setFsOff(true); exitFS(); } else { setFsOff(false); enterFS(); }
+  };
+  // 첫 터치/클릭 때 자동 전체화면 (직접 끈 기기는 자동으로 다시 켜지 않음)
+  function autoFS() {
+    if (!isApp() && canFS() && !inFS() && !fsOff() && $back.hidden) enterFS();
+  }
+  document.addEventListener('pointerup', autoFS, { once: true });
+  updateFsBtn();
+
   // ---------- 시작 ----------
   $app.innerHTML = '<div class="loading">그림을 불러오는 중…</div>';
   load().then(render).catch((e) => { $app.innerHTML = `<div class="loading">불러오지 못했어요: ${esc(e.message)}</div>`; });
