@@ -8,6 +8,14 @@
       "name": "지율",
       "frame": "champ",
       "updatedAt": "2026-11-15T05:21:13.154Z"
+    },
+    {
+      "id": "jung-woo",
+      "createdAt": "2026-11-15T05:22:16.818Z",
+      "photo": "profiles/jung-woo_1794720135219.jpg",
+      "name": "정우",
+      "frame": "gold",
+      "updatedAt": "2026-11-15T05:22:16.818Z"
     }
   ],
   "drawings": []
