@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 440" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffbef" stop-opacity="1"/>
+      <stop offset=".45" stop-color="#fff4dc" stop-opacity=".75"/>
+      <stop offset="1" stop-color="#ffe6b5" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="b" x="-30%" y="-10%" width="160%" height="130%"><feGaussianBlur stdDeviation="12"/></filter>
+  </defs>
+  <polygon points="150,8 190,8 320,430 20,430" fill="url(#g)" filter="url(#b)"/>
+</svg>
