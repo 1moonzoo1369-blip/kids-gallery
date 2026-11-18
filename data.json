@@ -86,6 +86,23 @@
       "icon": "heart",
       "createdAt": "2026-11-18T11:24:05.773Z",
       "updatedAt": "2026-11-18T11:24:05.773Z"
+    },
+    {
+      "id": "tyez7tcz",
+      "child": "ju-yul",
+      "date": "2026-11-18",
+      "n": 2,
+      "file": "drawings/ju-yul/2026/11/2026-11-18_02.jpg",
+      "thumb": "thumbs/ju-yul/2026/11/2026-11-18_02.jpg",
+      "sha": "1fdac160f8649960e5dd6c8ceaf21f15de4b03d5",
+      "thumbSha": "c6f3716c1dffffcf7cee63a5868f8d461612e35b",
+      "w": 1500,
+      "h": 2000,
+      "title": "정우의 아빠 안음",
+      "desc": "쉼터에서 아빠를 안다가 아빠가 정우 목을 너무 세게 안아서  정우가 아빠한테 화를 냈어요.",
+      "icon": "star",
+      "createdAt": "2026-11-18T11:25:53.155Z",
+      "updatedAt": "2026-11-18T11:25:53.155Z"
     }
   ]
 }
