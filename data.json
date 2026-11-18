@@ -69,6 +69,23 @@
       "icon": "heart",
       "createdAt": "2026-11-15T05:31:07.461Z",
       "updatedAt": "2026-11-15T05:31:07.461Z"
+    },
+    {
+      "id": "uljfbweu",
+      "child": "ju-yul",
+      "date": "2026-11-18",
+      "n": 1,
+      "file": "drawings/ju-yul/2026/11/2026-11-18_01.jpg",
+      "thumb": "thumbs/ju-yul/2026/11/2026-11-18_01.jpg",
+      "sha": "bc44aeb30862ef547c42173a692fbf5db493c3db",
+      "thumbSha": "ffa0dd4a502d82530cdf65f3ab2e199674676037",
+      "w": 1500,
+      "h": 2000,
+      "title": "지율이의 엄마 안음",
+      "desc": "놀이터에서 뛰다가 무릎을 다친 지율이가 엄마한테 안겨요.",
+      "icon": "heart",
+      "createdAt": "2026-11-18T11:24:05.773Z",
+      "updatedAt": "2026-11-18T11:24:05.773Z"
     }
   ]
 }
