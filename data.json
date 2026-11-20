@@ -103,6 +103,22 @@
       "icon": "star",
       "createdAt": "2026-11-18T11:25:53.155Z",
       "updatedAt": "2026-11-18T11:25:53.155Z"
+    },
+    {
+      "id": "kxggu650",
+      "child": "jung-woo",
+      "date": "2026-11-20",
+      "n": 1,
+      "file": "drawings/jung-woo/2026/11/2026-11-20_01.jpg",
+      "thumb": "thumbs/jung-woo/2026/11/2026-11-20_01.jpg",
+      "sha": "97130ab451e2e00617b9663472ed6970b4aa0095",
+      "thumbSha": "f2daa32fcb639955a53199cd9d7f7018dff686dc",
+      "w": 2000,
+      "h": 1500,
+      "title": "공주와 왕자",
+      "desc": "",
+      "createdAt": "2026-11-20T11:56:51.098Z",
+      "updatedAt": "2026-11-20T11:56:51.098Z"
     }
   ]
 }
