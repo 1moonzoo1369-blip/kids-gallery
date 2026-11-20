@@ -135,6 +135,22 @@
       "desc": "정우가 방귀를 껴요",
       "createdAt": "2026-11-20T11:58:38.989Z",
       "updatedAt": "2026-11-20T11:58:38.989Z"
+    },
+    {
+      "id": "rql8shxr",
+      "child": "ju-yul",
+      "date": "2026-11-20",
+      "n": 2,
+      "file": "drawings/ju-yul/2026/11/2026-11-20_02.jpg",
+      "thumb": "thumbs/ju-yul/2026/11/2026-11-20_02.jpg",
+      "sha": "6f341fbd2ae5ed74c1ff3fa36bed1c6b2f5228a8",
+      "thumbSha": "0d6ecf1efab264e1f14f7e4c673284ffe6d4269e",
+      "w": 2000,
+      "h": 1500,
+      "title": "언니와 동생",
+      "desc": "동생이 캠핑을 다녀온 언니한테 밥을 차려줬고 언니는 큰소리로 동생을 반갑게 불렀어요. 끝",
+      "createdAt": "2026-11-20T12:11:48.260Z",
+      "updatedAt": "2026-11-20T12:11:48.260Z"
     }
   ]
 }
