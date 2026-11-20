@@ -119,6 +119,22 @@
       "desc": "",
       "createdAt": "2026-11-20T11:56:51.098Z",
       "updatedAt": "2026-11-20T11:56:51.098Z"
+    },
+    {
+      "id": "m24jfvae",
+      "child": "ju-yul",
+      "date": "2026-11-20",
+      "n": 1,
+      "file": "drawings/ju-yul/2026/11/2026-11-20_01.jpg",
+      "thumb": "thumbs/ju-yul/2026/11/2026-11-20_01.jpg",
+      "sha": "ab67ab0c0e91f1a290df90eb1f3480c66dcaa9a3",
+      "thumbSha": "d8be2c96c306dc5b39af8847489cd552ee469037",
+      "w": 2000,
+      "h": 1500,
+      "title": "방귀뀌는 사람은 바로 정우",
+      "desc": "정우가 방귀를 껴요",
+      "createdAt": "2026-11-20T11:58:38.989Z",
+      "updatedAt": "2026-11-20T11:58:38.989Z"
     }
   ]
 }
